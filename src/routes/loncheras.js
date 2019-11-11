@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+
 const mysqlConnection = require('../database.js');
 
 //CREA O INSERTA
@@ -91,7 +92,16 @@ const mysqlConnection = require('../database.js');
 //LEER DATOS
 
     //Entrega información de solo un cliente correo y contrasena
-        
+    router.get('/signin/:correo/:contrasena', (req, res) => {
+      const { correo, contrasena } = req.params;
+      mysqlConnection.query('SELECT * FROM CLIENTE WHERE correo = ? && contrasena = ?', [correo, contrasena], (err, rows, fields) => {
+        if (!err) {
+          res.json(rows);
+        } else {
+          console.log(err);
+        }
+      });
+    });    
 
 
     // Entrega información da lista de proveedores
