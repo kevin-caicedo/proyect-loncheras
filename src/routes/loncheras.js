@@ -88,6 +88,15 @@ const mysqlConnection = require('../database.js');
     });
 
     //Registrar LONCHERA
+    router.post('/registroLonchera', (req, res) => {
+      mysqlConnection.query('INSERT INTO loncheras set ?', [req.body], (err, rows, fields)=>{
+        if(!err){
+          res.json({status: 'lonchera insertada'});
+        }else{
+          console.log(err);
+        }
+      });
+    });
 
 
 
