@@ -36,7 +36,7 @@ CREATE TABLE HIJO (
 );
 
 INSERT INTO HIJO(ti, nombre, apellido, alergia, direccion, telefono) 
-VALUES ('1000', 'Juan', 'Perez', 'ninguna', 'call 30 con nqs' ,'123456');
+VALUES ('2000', 'Juanito', 'Perez', 'ninguna', 'call 30 con nqs' ,'123456');
 
 SELECT * FROM HIJO;
 
@@ -49,6 +49,13 @@ CREATE TABLE MEMBRESIA(
     FOREIGN KEY (id_lonchera) REFERENCES MEMBRESIALONCHERA(id_lonchera), 
     PRIMARY KEY(id_membresia)
 );
+
+INSERT INTO MEMBRESIA(tipo_lonchera, cantidad_lonchera, costo) 
+VALUES ('premium', 5, 10000);
+
+ALTER TABLE Membresia ADD numeroProductos INT(11);
+
+SELECT * FROM membresia;
 
 CREATE TABLE MEMBRESIALONCHERA(
 	id_membresia INT(11),
@@ -68,6 +75,16 @@ CREATE TABLE LONCHERAS(
     FOREIGN KEY (id_producto) REFERENCES LONCHERAPRODUCTO(id_producto), 
     PRIMARY KEY (id_lonchera)
 );
+
+INSERT INTO LONCHERAS(id_lonchera, cantidad_producto, descripcion, id_membresia, id_producto, id_hijo) 
+VALUES (2, 5, 'Pues bueno sise', 1, 1, 2);
+
+SELECT * FROM loncheras;
+
+ALTER TABLE LONCHERAS ADD id_hijo INT(11) unique;
+ALTER TABLE LONCHERAS ADD foreign key(id_hijo) references HIJO(id_hijo);
+
+SELECT * FROM loncheras;
 
 CREATE TABLE LONCHERAPRODUCTO(
 	id_lonchera INT(11),
@@ -91,6 +108,7 @@ CREATE TABLE PRODUCTO(
 );
 
 ALTER TABLE producto ADD imagen_producto VARCHAR(200) NOT NULL AFTER descripcion;
+SELECT * FROM PRODUCTO;
 
 CREATE TABLE PROVEEDORES(
 	id_proveedor INT(11) NOT NULL AUTO_INCREMENT,

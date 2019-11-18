@@ -87,6 +87,8 @@ const mysqlConnection = require('../database.js');
       });
     });
 
+    //Registrar LONCHERA
+
 
 
 //LEER DATOS
@@ -187,11 +189,92 @@ const mysqlConnection = require('../database.js');
       });
     });
 
+    //Ver lonchera de un en HIJO ESPECÍFICO
+    router.get('/lonchera/hijo/:id_hijo', (req, res) => {
+      const { id_hijo } = req.params;
+      mysqlConnection.query('SELECT * FROM loncheras WHERE id_hijo = ?', [id_hijo], (err, rows, fields) => {
+        if (!err) {
+          res.json(rows[0]);
+        } else {
+          console.log(err);
+        }
+      });
+    });
 
+    //Obtiene todas las membresias
+    router.get('/membresias', (req, res) => {
+      mysqlConnection.query('SELECT * FROM membresia', (err, rows, fields) => {
+        if (!err) {
+          res.json(rows);
+        } else {
+          console.log(err);
+        }
+      });
+    });
 
 // ACTUALIZAR DATOS
 
 // ELIMINAR DATOS
+
+    //Eliminar cliente
+    router.delete('/cliente/:id_cliente', (req, res) => {
+      const { id_cliente } = req.params;
+      mysqlConnection.query('DELETE FROM cliente WHERE id_cliente = ?', [id_cliente], (err, rows, fields) => {
+        if (!err) {
+          res.json({ status: 'Cliente Eliminado' });
+        } else {
+          console.log(err);
+        }
+      });
+    });
+
+    //Eliminar HIJO
+    router.delete('/hijo/:id_hijo', (req, res) => {
+      const { id_hijo } = req.params;
+      mysqlConnection.query('DELETE FROM HIJO WHERE id_hijo = ?', [id_hijo], (err, rows, fields) => {
+        if (!err) {
+          res.json({ status: 'Hijo Eliminado' });
+        } else {
+          console.log(err);
+        }
+      });
+    });
+
+    //Eliminar PROVEEDOR
+    router.delete('/proveedor/:id_proveedor', (req, res) => {
+      const { id_proveedor } = req.params;
+      mysqlConnection.query('DELETE FROM proveedores WHERE id_proveedor = ?', [id_proveedor], (err, rows, fields) => {
+        if (!err) {
+          res.json({ status: 'Proveedor Eliminado' });
+        } else {
+          console.log(err);
+        }
+      });
+    });
+
+    //Eliminar PRODUCTO
+    router.delete('/producto/:id_producto', (req, res) => {
+      const { id_producto } = req.params;
+      mysqlConnection.query('DELETE FROM producto WHERE id_producto = ?', [id_producto], (err, rows, fields) => {
+        if (!err) {
+          res.json({ status: 'producto Eliminado' });
+        } else {
+          console.log(err);
+        }
+      });
+    });
+
+    //Eliminar MEMBRESÍA
+    router.delete('/membresia/:id_membresia', (req, res) => {
+      const { id_membresia } = req.params;
+      mysqlConnection.query('DELETE FROM membresia WHERE id_membresia = ?', [id_membresia], (err, rows, fields) => {
+        if (!err) {
+          res.json({ status: 'membresia Eliminado' });
+        } else {
+          console.log(err);
+        }
+      });
+    });
 
 
 
