@@ -221,6 +221,18 @@ const mysqlConnection = require('../database.js');
       });
     });
 
+    //Obtiene todos los productos que tiene una lonchera
+    router.get('/producto/lonchera/:id_lonchera', (req, res) => {
+      const { id_lonchera } = req.params;
+      mysqlConnection.query('SELECT * FROM producto WHERE id_lonchera = ?', [id_lonchera], (err, rows, fields) => {
+        if (!err) {
+          res.json(rows[0]);
+        } else {
+          console.log(err);
+        }
+      });
+    });
+
 // ACTUALIZAR DATOS
 
 // ELIMINAR DATOS

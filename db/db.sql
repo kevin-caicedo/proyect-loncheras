@@ -76,9 +76,13 @@ CREATE TABLE LONCHERAS(
     PRIMARY KEY (id_lonchera)
 );
 
-INSERT INTO LONCHERAS(id_lonchera, cantidad_producto, descripcion, id_membresia, id_producto, id_hijo) 
-VALUES (2, 5, 'Pues bueno sise', 1, 1, 2);
+ALTER TABLE LONCHERAS MODIFY id_lonchera INT(11) NOT NULL AUTO_INCREMENT;
 
+
+INSERT INTO LONCHERAS(id_lonchera, cantidad_producto, descripcion, id_membresia, id_producto, id_hijo) 
+VALUES (1, 5, 'Pues bueno que hacemos', 2, 3, 4);
+
+DELETE FROM LONCHERAS WHERE ID_LONCHERA =1;
 SELECT * FROM loncheras;
 
 ALTER TABLE LONCHERAS ADD id_hijo INT(11) unique;
@@ -108,6 +112,10 @@ CREATE TABLE PRODUCTO(
 );
 
 ALTER TABLE producto ADD imagen_producto VARCHAR(200) NOT NULL AFTER descripcion;
+
+INSERT INTO PRODUCTO(nombre_producto, fecha_vencimiento, precio, descripcion, imagen_producto, id_lonchera, id_proveedor) 
+VALUES ('pepsi', '20-12-17', 2000, 'botella en lata, tomalo y veras', 'https://www.pepsi.com/en-us/uploads/images/can-pepsi.png?mtime=20180110134757', 2, 1);
+
 SELECT * FROM PRODUCTO;
 
 CREATE TABLE PROVEEDORES(
