@@ -37,23 +37,19 @@ const mysqlConnection = require('../database.js');
       });
     });
     
-    //REGISTRAR COMPRA DE MEMBRESÍAS
-    router.post('/registroMembresia', (req, res) => {
-      const { id_membresia, tipo_lonchera, cantidad_lonchera, costo, id_lonchera } = req.body;
-      const query = `
-          CALL membresiaAddOrEdit(?, ?, ?, ?, ?);
-        `;
 
-      mysqlConnection.query(query, [id_membresia, tipo_lonchera, cantidad_lonchera, costo, id_lonchera], (err, rows, fields) => {
-        if (!err) {
-          res.json({ status: 'Membership Saved' });
-        } else {
+    //Registrar MEMBRESIA
+    router.post('/registroMembresia', (req, res) => {
+      mysqlConnection.query('INSERT INTO membresia set ?', [req.body], (err, rows, fields)=>{
+        if(!err){
+          res.json({status: 'Membresia insertada'});
+        }else{
           console.log(err);
         }
       });
-
-
     });
+
+
     //REGISTRAR PROVEEDOR
     router.post('/registroProveedor', (req, res) => {
       const { id_proveedor, nombre, direccion, telefono } = req.body;
@@ -148,6 +144,31 @@ const mysqlConnection = require('../database.js');
       });
     });
 
+    //Entrega información de un solo producto
+    router.get('/producto/:id_producto', (req, res) => {
+      const { id_producto } = req.params;
+      mysqlConnection.query('SELECT * FROM PRODUCTO WHERE id_producto = ?', [id_producto], (err, rows, fields) => {
+        if (!err) {
+          res.json(rows[0]);
+        } else {
+          console.log(err);
+        }
+      });
+    });
+
+    //Obtiene lonchera enviando id_hijo
+    router.get('/lonchera/:id_hijo', (req, res) => {
+      const { id_hijo } = req.params;
+      mysqlConnection.query('SELECT * FROM LONCHERAS WHERE id_hijo = ?', [id_hijo], (err, rows, fields) => {
+        if (!err) {
+          res.json(rows[0]);
+        } else {
+          console.log(err);
+        }
+      });
+    });
+
+
     //Entrega información de lista de hijos
     router.get('/hijos', (req, res) => {
       mysqlConnection.query('SELECT * FROM HIJO', (err, rows, fields) => {
@@ -185,7 +206,7 @@ const mysqlConnection = require('../database.js');
       });
     });
 
-    //OBTIENE TODAS LAS MEMBRESIAS DE PRODUCTOS
+    //OBTIENE TODAS LAS MEMBRESIAS DE PRODUCTOS (SIN USAR)
     router.get('/membresia/producto/:id_membresia', (req, res) =>{
       const { id_membresia } = req.params;
       mysqlConnection.query('SELECT * FROM PRODUCTO WHERE id_membresia = ?', [id_membresia], (err, rows, fields) =>{

@@ -78,9 +78,10 @@ CREATE TABLE LONCHERAS(
 
 ALTER TABLE LONCHERAS MODIFY id_lonchera INT(11) NOT NULL AUTO_INCREMENT;
 
+ALTER TABLE loncheras ADD lista_productos json;
 
-INSERT INTO LONCHERAS(id_lonchera, cantidad_producto, descripcion, id_membresia, id_producto, id_hijo) 
-VALUES (1, 5, 'Pues bueno que hacemos', 2, 3, 4);
+INSERT INTO LONCHERAS(id_lonchera, cantidad_producto, descripcion, id_membresia, id_producto, id_hijo, lista_productos) 
+VALUES (3, 5, 'Pues bueno que hacemos', 2, 3, 5, '["1", "2", "3"]');
 
 DELETE FROM LONCHERAS WHERE ID_LONCHERA =1;
 SELECT * FROM loncheras;
